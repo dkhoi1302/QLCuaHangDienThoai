@@ -59,14 +59,14 @@ namespace QLCuaHangDienThoai
                         FormTrangChu.level = "admin";
                         FormTrangChu trangChu = new FormTrangChu();
                         trangChu.Show();
-                        this.Close();
+                        this.Hide();
                     }
                     else if (user.levelID != 1)
                     {
                         FormTrangChu.level = "Nv";
                         FormTrangChu trangChu = new FormTrangChu();
                         trangChu.Show();
-                        this.Close();
+                        this.Hide();
                     }
                 }
             }

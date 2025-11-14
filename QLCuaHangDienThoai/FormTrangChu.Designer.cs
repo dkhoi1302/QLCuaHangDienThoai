@@ -46,7 +46,6 @@
             this.btnTrangchu = new CustomButton.VBButton();
             this.label_Xinchao = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.lblDateTime = new System.Windows.Forms.Label();
             this.lblPhanQuyen = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
@@ -261,6 +260,7 @@
             this.btnLogout.TextColor = System.Drawing.Color.White;
             this.btnLogout.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnLogout.UseVisualStyleBackColor = false;
+            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
             // 
             // btnSanPham
             // 
@@ -328,7 +328,6 @@
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(143)))), ((int)(((byte)(160)))));
-            this.panel4.Controls.Add(this.lblDateTime);
             this.panel4.Controls.Add(this.lblPhanQuyen);
             this.panel4.Controls.Add(this.panel3);
             this.panel4.Controls.Add(this.label3);
@@ -340,20 +339,6 @@
             this.panel4.Padding = new System.Windows.Forms.Padding(0, 21, 25, 0);
             this.panel4.Size = new System.Drawing.Size(1097, 62);
             this.panel4.TabIndex = 2;
-            // 
-            // lblDateTime
-            // 
-            this.lblDateTime.AutoSize = true;
-            this.lblDateTime.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(143)))), ((int)(((byte)(160)))));
-            this.lblDateTime.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lblDateTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.lblDateTime.ForeColor = System.Drawing.SystemColors.Control;
-            this.lblDateTime.Location = new System.Drawing.Point(955, 21);
-            this.lblDateTime.Margin = new System.Windows.Forms.Padding(2, 42, 2, 0);
-            this.lblDateTime.Name = "lblDateTime";
-            this.lblDateTime.Size = new System.Drawing.Size(117, 17);
-            this.lblDateTime.TabIndex = 5;
-            this.lblDateTime.Text = "Thời gian hiện tại";
             // 
             // lblPhanQuyen
             // 
@@ -468,7 +453,6 @@
         private CustomButton.VBButton btnTrangchu;
         private System.Windows.Forms.Label label_Xinchao;
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Label lblDateTime;
         private System.Windows.Forms.Label lblPhanQuyen;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label3;

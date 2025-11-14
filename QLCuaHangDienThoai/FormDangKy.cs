@@ -17,10 +17,24 @@ namespace QLCuaHangDienThoai
         private void btn_LayOTP_Click(object sender, EventArgs e)
         {
             email = textBox_Email.Text;
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                MessageBox.Show("Vui lòng nhập email trước!", "Thông báo");
+                return;
+            }
             currentOTP = new Random().Next(1000, 9999).ToString();
             otpSentTime = DateTime.Now;
             otp = currentOTP;
-            sendemail.SendOTP(email, otp);
+            bool ketQua = sendemail.SendOTP(email, currentOTP);
+
+            if (ketQua == true)
+            {
+                MessageBox.Show("Gửi OTP thành công!", "Thông báo");
+            }
+            else
+            {
+                MessageBox.Show("Gửi OTP thất bại! Vui lòng thử lại.", "Lỗi");
+            }
         }
         public FormDangKy()
         {

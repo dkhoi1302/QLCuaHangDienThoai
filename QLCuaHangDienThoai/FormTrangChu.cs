@@ -28,5 +28,13 @@ namespace QLCuaHangDienThoai
         {
             toolStripStatusLabel1.Text = DateTime.Now.ToString("dd//MM//yyyy HH:mm:ss");
         }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            FormDangNhap login = new FormDangNhap();
+            login.ShowDialog();
+            this.Close();
+        }
     }
 }
