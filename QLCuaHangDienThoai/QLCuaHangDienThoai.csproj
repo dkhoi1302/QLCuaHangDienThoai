@@ -178,6 +178,9 @@
     <EmbeddedResource Include="FormKhoHang.resx">
       <DependentUpon>FormKhoHang.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormNhaCC.resx">
+      <DependentUpon>FormNhaCC.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormNhanVien.resx">
       <DependentUpon>FormNhanVien.cs</DependentUpon>
     </EmbeddedResource>
@@ -268,6 +271,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\reset %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add-user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\wrench.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\delete.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

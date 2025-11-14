@@ -20,3 +20,4 @@ K:\ltrinh win\QLCuaHangDienThoai\QLCuaHangDienThoai\obj\Debug\QLCuaHangDienThoai
 K:\ltrinh win\QLCuaHangDienThoai\QLCuaHangDienThoai\obj\Debug\QLCuaHangDienThoai.FormKhoHang.resources
 K:\ltrinh win\QLCuaHangDienThoai\QLCuaHangDienThoai\obj\Debug\QLCuaHangDienThoai.FormNhanVien.resources
 K:\ltrinh win\QLCuaHangDienThoai\QLCuaHangDienThoai\obj\Debug\QLCuaHangDienThoai.FormNhapHang.resources
+K:\ltrinh win\QLCuaHangDienThoai\QLCuaHangDienThoai\obj\Debug\QLCuaHangDienThoai.FormNhaCC.resources

@@ -97,6 +97,7 @@
             this.btn_Thoat.TabIndex = 10;
             this.btn_Thoat.Text = "Thoát";
             this.btn_Thoat.UseVisualStyleBackColor = true;
+            this.btn_Thoat.Click += new System.EventHandler(this.btn_Thoat_Click);
             // 
             // btn_DangNhap
             // 
@@ -110,6 +111,7 @@
             this.btn_DangNhap.TabIndex = 9;
             this.btn_DangNhap.Text = "Đăng Nhập";
             this.btn_DangNhap.UseVisualStyleBackColor = false;
+            this.btn_DangNhap.Click += new System.EventHandler(this.btn_DangNhap_Click_1);
             // 
             // label_MKhau
             // 
@@ -145,6 +147,7 @@
             this.checkBox_HienThiMatKhau.TabIndex = 5;
             this.checkBox_HienThiMatKhau.Text = "Hiện Thị Mật Khẩu";
             this.checkBox_HienThiMatKhau.UseVisualStyleBackColor = false;
+            this.checkBox_HienThiMatKhau.CheckedChanged += new System.EventHandler(this.checkBox_HienThiMatKhau_CheckedChanged);
             // 
             // textBox_MatKhau
             // 

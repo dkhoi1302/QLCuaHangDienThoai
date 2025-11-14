@@ -117,35 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="backgroundWorker1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
+  <metadata name="MaNV.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
-  <metadata name="backgroundWorker2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>211, 17</value>
+  <metadata name="TenNV.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btnTrangchu.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1
-        MAAA6mAAADqYAAAXcJy6UTwAAAAHdElNRQfnBBoOJhzQ8GLAAAAB4UlEQVRYR+3Xz4vNYRTH8WEyNn6G
-        UJNYGSELWYiNbMRqFlPKQllYTanZsLRjh/wP2JCdWIgUKTs/IiWFopAiQrx0xrn5Ou7M3DEzSt13nbqd
-        8znnOfd7nu/z3NvT02UKYHlY9f8TsB0v8Ao7a3zGwCwcwhe/+IqjEav6aQULcb6xcOVCaFK7AEPFBmrN
-        jsE6PKgrtuExNmF9DeBIrdsR2I+PtRpOp1VCe7w6J90A5uJUrYL32NvQDeJdFbWh8wawCrdrBTzEhtSs
-        DsvPa3G3igudNYA9eFuzyybbjTf5zQfTNw9nalKD8RtAL47he0n8jOHUxGt4GN8a8dDHzHtTM5w5lbMt
-        zR9gGa7UDDzD1tQsxeUqaHANK1K7GU+qANexsi7eOtUqV1tHLbbgaRW04Tm2Zc4SXKqC305PjORJ1iQe
-        b5xss1NzcIxHOhZRL8YU45qdtZoja2lGovjJEniNXbnwfJwr8clwEYuy1g68LPETEZiDG+m4gzWZMIB7
-        JeFveISNWbMfN9N/C32tMUQgdvGoA/vwoRSaCp9wIGv35Vr9P3dgIWc2U4zuqXHpNtBhA3EfLC4Wr9pE
-        TFsD99vkxXs/Ed0Gug10G+iogbhC4/odz4ba5MVP8aqrNrN/XP5LfgDCko7hxoHauQAAAABJRU5ErkJg
-        gg==
-</value>
-  </data>
-  <metadata name="ThoiGian.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>405, 17</value>
+  <metadata name="sdtNV.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
-  <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>507, 17</value>
-  </metadata>
-  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>104</value>
+  <metadata name="Email.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
 </root>

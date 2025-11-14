@@ -17,5 +17,16 @@ namespace QLCuaHangDienThoai
         {
             InitializeComponent();
         }
+
+        private void FormTrangChu_Load(object sender, EventArgs e)
+        {
+            ThoiGian.Enabled = true;
+            
+        }
+
+        private void ThoiGian_Tick(object sender, EventArgs e)
+        {
+            toolStripStatusLabel1.Text = DateTime.Now.ToString("dd//MM//yyyy HH:mm:ss");
+        }
     }
 }
