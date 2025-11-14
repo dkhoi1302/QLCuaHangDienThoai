@@ -141,6 +141,7 @@
             this.dtgrvHienThiListSPChon.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgrvHienThiListSPChon.Size = new System.Drawing.Size(649, 146);
             this.dtgrvHienThiListSPChon.TabIndex = 57;
+            this.dtgrvHienThiListSPChon.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgrvHienThiListSPChon_CellContentClick);
             // 
             // MaSP
             // 
@@ -308,6 +309,7 @@
             this.Controls.Add(this.lblDiachi);
             this.Name = "FormChiTietDH";
             this.Text = "FormChiTietDH";
+            this.Load += new System.EventHandler(this.FormChiTietDH_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dtgrvHienThiListSPChon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

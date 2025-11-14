@@ -106,6 +106,9 @@
             this.dtgrvHienThiListSPKho.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgrvHienThiListSPKho.Size = new System.Drawing.Size(997, 471);
             this.dtgrvHienThiListSPKho.TabIndex = 0;
+            this.dtgrvHienThiListSPKho.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgrvHienThiListSPKho_CellClick);
+            this.dtgrvHienThiListSPKho.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgrvHienThiListSPKho_CellContentClick);
+            this.dtgrvHienThiListSPKho.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dtgrvHienThiListSPKho_DataBindingComplete);
             // 
             // clMaSP
             // 
@@ -190,6 +193,7 @@
             this.vbButton2.Text = "Xuất Excel";
             this.vbButton2.TextColor = System.Drawing.Color.White;
             this.vbButton2.UseVisualStyleBackColor = false;
+            this.vbButton2.Click += new System.EventHandler(this.vbButton2_Click);
             // 
             // vbButton1
             // 
@@ -211,6 +215,7 @@
             this.vbButton1.Text = "Refesh";
             this.vbButton1.TextColor = System.Drawing.Color.White;
             this.vbButton1.UseVisualStyleBackColor = false;
+            this.vbButton1.Click += new System.EventHandler(this.vbButton1_Click);
             // 
             // btnNhapHang
             // 
@@ -232,6 +237,7 @@
             this.btnNhapHang.Text = "Nhập hàng";
             this.btnNhapHang.TextColor = System.Drawing.Color.White;
             this.btnNhapHang.UseVisualStyleBackColor = false;
+            this.btnNhapHang.Click += new System.EventHandler(this.btnNhapHang_Click);
             // 
             // btnXoaSP
             // 
@@ -253,6 +259,7 @@
             this.btnXoaSP.Text = "Xóa sản phẩm trong kho";
             this.btnXoaSP.TextColor = System.Drawing.Color.White;
             this.btnXoaSP.UseVisualStyleBackColor = false;
+            this.btnXoaSP.Click += new System.EventHandler(this.btnXoaSP_Click);
             // 
             // FormKhoHang
             // 
@@ -262,6 +269,7 @@
             this.Controls.Add(this.groupBox2);
             this.Name = "FormKhoHang";
             this.Text = "FormKhoHang";
+            this.Load += new System.EventHandler(this.FormKhoHang_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dtgrvHienThiListSPKho)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);

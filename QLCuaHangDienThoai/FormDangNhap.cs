@@ -103,5 +103,10 @@ namespace QLCuaHangDienThoai
             else
                 textBox_MatKhau.UseSystemPasswordChar = false; 
         }
+
+        private void FormDangNhap_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

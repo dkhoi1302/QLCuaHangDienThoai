@@ -63,6 +63,16 @@ namespace QLCuaHangDienThoai.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _6c0c47c3282dfc661d3fbc0b9edf4c0b {
+            get {
+                object obj = ResourceManager.GetObject("6c0c47c3282dfc661d3fbc0b9edf4c0b", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap add_user {
             get {
                 object obj = ResourceManager.GetObject("add-user", resourceCulture);

@@ -58,10 +58,10 @@
             this.panel_DangNhap.Controls.Add(this.label_Welcome);
             this.panel_DangNhap.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel_DangNhap.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.panel_DangNhap.Location = new System.Drawing.Point(645, 0);
+            this.panel_DangNhap.Location = new System.Drawing.Point(638, 0);
             this.panel_DangNhap.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel_DangNhap.Name = "panel_DangNhap";
-            this.panel_DangNhap.Size = new System.Drawing.Size(412, 529);
+            this.panel_DangNhap.Size = new System.Drawing.Size(419, 536);
             this.panel_DangNhap.TabIndex = 10;
             // 
             // linkLabel_DangKy
@@ -189,12 +189,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1057, 529);
+            this.BackgroundImage = global::QLCuaHangDienThoai.Properties.Resources._6c0c47c3282dfc661d3fbc0b9edf4c0b;
+            this.ClientSize = new System.Drawing.Size(1057, 536);
             this.Controls.Add(this.panel_DangNhap);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.Name = "FormDangNhap";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Đăng Nhập";
+            this.Load += new System.EventHandler(this.FormDangNhap_Load);
             this.panel_DangNhap.ResumeLayout(false);
             this.panel_DangNhap.PerformLayout();
             this.ResumeLayout(false);
