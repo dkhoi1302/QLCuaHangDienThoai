@@ -10,10 +10,9 @@ using System.Windows.Forms;
 
 namespace QLCuaHangDienThoai
 {
-    public partial class FormTrangChu : Form
+    public partial class FormQRSanPham : Form
     {
-        public static string level;
-        public FormTrangChu()
+        public FormQRSanPham()
         {
             InitializeComponent();
         }

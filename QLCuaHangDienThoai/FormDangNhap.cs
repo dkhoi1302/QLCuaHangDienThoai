@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows.Forms;
+using static System.Net.WebRequestMethods;
 
 namespace QLCuaHangDienThoai
 {
@@ -19,10 +22,8 @@ namespace QLCuaHangDienThoai
         {
             string username = textBox_TaiKhoan.Text.Trim();
             string password = textBox_MatKhau.Text.Trim();
-            user = textBox_TaiKhoan.Text;
-            password = textBox_MatKhau.Text;
 
-            if (user == "" || password == "")
+            if (username == "" || password == "")
             {
                 MessageBox.Show("Vui long dien thong tin", "thong bao", MessageBoxButtons.OK);
             }
@@ -33,30 +34,38 @@ namespace QLCuaHangDienThoai
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            DataClasses1DataContext data = new DataClasses1DataContext();
+            NguoiDung user = data.NguoiDungs.SingleOrDefault(d=>d.username==username);
 
-            try
+
+            if (user != null)
             {
-                var user = db.NguoiDungs
-                             .FirstOrDefault(u => u.username == username && u.password == password);
+                MD5 md5 = MD5.Create();
+                byte[] inputBytes = Encoding.ASCII.GetBytes(password + user.randomkey);
+                byte[] hashBytes = md5.ComputeHash(inputBytes);
+                string hashString = BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
 
-                if (user != null)
+                if (hashString == user.password)
                 {
-                    MessageBox.Show("Đăng nhập thành công!", "Thông báo",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    FormTrangChu frm = new FormTrangChu();
-                    frm.Show();
-                    this.Hide();
-                }
-                else
-                {
-                    MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu!", "Thông báo",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (user.levelID == 1)
+                    {
+                        FormTrangChu.level = "admin";
+                        FormTrangChu trangChu = new FormTrangChu();
+                        trangChu.Show();
+                        this.Close();
+                    }
+                    else if(user.levelID !=1) 
+                    {
+                        FormTrangChu.level = "admin";
+                        FormTrangChu trangChu = new FormTrangChu();
+                        trangChu.Show();
+                        this.Close();
+                    }
                 }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show("Lỗi đăng nhập: " + ex.Message, "Lỗi",
+                MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu!", "Thông báo",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -76,7 +85,7 @@ namespace QLCuaHangDienThoai
             FormDangKy dangky = new FormDangKy();
             this.Hide();
             dangky.ShowDialog();
-            this.Close();
+            this.Show();
         }
 
         private void linkLabel_QuenMatKhau_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -84,7 +93,7 @@ namespace QLCuaHangDienThoai
             FormQuenMatKhau quenmatkhau = new FormQuenMatKhau();
             this.Hide();
             quenmatkhau.ShowDialog();
-            this.Close();
+            this.Show();
         }
     }
 }

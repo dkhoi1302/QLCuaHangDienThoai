@@ -53,7 +53,7 @@
             // btn_Thoat
             // 
             this.btn_Thoat.AutoSize = true;
-            this.btn_Thoat.BackColor = System.Drawing.SystemColors.MenuHighlight;
+            this.btn_Thoat.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.btn_Thoat.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.btn_Thoat.Location = new System.Drawing.Point(339, 346);
             this.btn_Thoat.Name = "btn_Thoat";
