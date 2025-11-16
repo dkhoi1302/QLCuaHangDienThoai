@@ -16,10 +16,5 @@ namespace QLCuaHangDienThoai
         {
             InitializeComponent();
         }
-
-        private void pictureBox_TimKiem(object sender, EventArgs e)
-        {
-
-        }
     }
 }

@@ -12,6 +12,8 @@ namespace QLCuaHangDienThoai
 {
     public partial class FormXuatHoaDon : Form
     {
+        public static DonHang donHang;
+        public static List<dynamic> listSanPham;
         public FormXuatHoaDon()
         {
             InitializeComponent();

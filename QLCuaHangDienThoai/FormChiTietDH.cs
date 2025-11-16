@@ -1,48 +1,67 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace QLCuaHangDienThoai
 {
     public partial class FormChiTietDH : Form
     {
-        public FormChiTietDH()
-        {
-            private DonHang donHang;
-            private List<ObjectSP> listSanPham;
-        public FormChiTietDH(DonHang dh, List<ObjectSP> listsp)
+        public DonHang donHang;
+        public System.Collections.Generic.List<dynamic> listSanPham;
+        DataClasses1DataContext db = new DataClasses1DataContext();
+
+        public FormChiTietDH(DonHang dh, System.Collections.Generic.List<dynamic> listSP)
         {
             InitializeComponent();
             donHang = dh;
-            listSanPham = listsp;
+            listSanPham = listSP;
         }
 
         private void FormChiTietDH_Load(object sender, EventArgs e)
         {
-            var ttnv = donHang;
-            var listsps = listSanPham;
-            lblMaHD.Text = ttnv.MaDH.ToString();
-            lblMaNV.Text = ttnv.MaNV.ToString();
-            lblTenKH.Text = ttnv.TenKH.ToString();
-            lblSDTKH.Text = ttnv.SDTKH.ToString();
-            lblDiachi.Text = ttnv.DiaChi.ToString();
-            lblNgaymua.Text = ttnv.NgayMua.ToString();
-            foreach (var i in listsps)
+            if (donHang == null)
             {
-                dtgrvHienThiListSPChon.Rows.Add(i.MaSP, i.TenSP, i.Soluong, i.Giaban, i.Thanhtien);
-
+                MessageBox.Show("Không có dữ liệu đơn hàng!", "Lỗi",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+                return;
             }
-        }
 
-        private void dtgrvHienThiListSPChon_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            dtgrvHienThiListSPChon.CurrentCell = null;
+            // ======== Hiển thị thông tin đơn hàng ========
+            lblMaHD.Text = donHang.MaDH.ToString();
+            lblMaNV.Text = donHang.MaNV.ToString();
+            lblTenKH.Text = donHang.TenKH ?? "";
+            lblSDTKH.Text = donHang.SDTKH ?? "";
+            lblDiachi.Text = donHang.DiaChi ?? "";
+            lblNgaymua.Text = donHang.NgayMua?.ToString("dd/MM/yyyy") ?? "Chưa xác định";
+
+            // ======== Lấy danh sách sản phẩm đã mua ========
+            dtgrvHienThiListSPChon.Rows.Clear();
+
+            var listSanPham = from ct in db.ChiTietDonHangs
+                              join sp in db.SanPhams on ct.MaSP equals sp.MaSP
+                              where ct.MaDH == donHang.MaDH
+                              select new
+                              {
+                                  sp.MaSP,
+                                  sp.TenSP,
+                                  ct.SoLuong,
+                                  ct.DonGia, // đổi thành GiaBan nếu bảng của bạn dùng tên khác
+                                  ThanhTien = ct.SoLuong * ct.DonGia
+                              };
+
+            foreach (var item in listSanPham)
+            {
+                dtgrvHienThiListSPChon.Rows.Add(
+                    item.MaSP,
+                    item.TenSP,
+                    item.SoLuong,
+                    item.DonGia,
+                    item.ThanhTien
+                );
+            }
+
+            dtgrvHienThiListSPChon.CurrentCell = null; // bỏ chọn mặc định
         }
     }
 }

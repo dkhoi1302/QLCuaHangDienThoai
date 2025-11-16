@@ -93,6 +93,16 @@ namespace QLCuaHangDienThoai.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap chi_tiet_ke_hoach_mo_cua_hang_phu_kien_dien_thoai_2 {
+            get {
+                object obj = ResourceManager.GetObject("chi-tiet-ke-hoach-mo-cua-hang-phu-kien-dien-thoai-2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap delete {
             get {
                 object obj = ResourceManager.GetObject("delete", resourceCulture);

@@ -44,5 +44,27 @@ namespace QLCuaHangDienThoai.Properties {
                 return ((string)(this["QLCuaHangDienThoaiConnectionString1"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=MSI\\SQLEXPRESS;Initial Catalog=QLCuaHangDienThoai;Integrated Security" +
+            "=True;Encrypt=True;TrustServerCertificate=True")]
+        public string QLCuaHangDienThoaiConnectionString2 {
+            get {
+                return ((string)(this["QLCuaHangDienThoaiConnectionString2"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=MSI\\SQLEXPRESS;Initial Catalog=QLCuahangbanphukiendienthoai;Integrate" +
+            "d Security=True;TrustServerCertificate=True")]
+        public string QLCuahangbanphukiendienthoaiConnectionString {
+            get {
+                return ((string)(this["QLCuahangbanphukiendienthoaiConnectionString"]));
+            }
+        }
     }
 }

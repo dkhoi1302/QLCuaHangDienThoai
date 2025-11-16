@@ -34,7 +34,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.clGiaban = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Thanhtien = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label9 = new System.Windows.Forms.Label();
+            this.label_ChiTietDonHang = new System.Windows.Forms.Label();
             this.dtgrvHienThiListSPChon = new System.Windows.Forms.DataGridView();
             this.MaSP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TenSP = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,13 +44,13 @@
             this.lblSDTKH = new System.Windows.Forms.Label();
             this.lblNgaymua = new System.Windows.Forms.Label();
             this.lblMaHD = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.label_MaNV = new System.Windows.Forms.Label();
+            this.label_MaHoaDon = new System.Windows.Forms.Label();
+            this.label_HoTen = new System.Windows.Forms.Label();
+            this.label_TTinKhachHang = new System.Windows.Forms.Label();
+            this.label_SanPham = new System.Windows.Forms.Label();
+            this.label_DiaChi = new System.Windows.Forms.Label();
+            this.label_NgayMua = new System.Windows.Forms.Label();
             this.lblDiachi = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dtgrvHienThiListSPChon)).BeginInit();
             this.SuspendLayout();
@@ -71,15 +71,15 @@
             this.Thanhtien.Name = "Thanhtien";
             this.Thanhtien.ReadOnly = true;
             // 
-            // label9
+            // label_ChiTietDonHang
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label9.Location = new System.Drawing.Point(244, 28);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(295, 38);
-            this.label9.TabIndex = 58;
-            this.label9.Text = "Chi Tiết Đơn Hàng";
+            this.label_ChiTietDonHang.AutoSize = true;
+            this.label_ChiTietDonHang.Font = new System.Drawing.Font("Times New Roman", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.label_ChiTietDonHang.Location = new System.Drawing.Point(244, 28);
+            this.label_ChiTietDonHang.Name = "label_ChiTietDonHang";
+            this.label_ChiTietDonHang.Size = new System.Drawing.Size(295, 38);
+            this.label_ChiTietDonHang.TabIndex = 58;
+            this.label_ChiTietDonHang.Text = "Chi Tiết Đơn Hàng";
             // 
             // dtgrvHienThiListSPChon
             // 
@@ -141,7 +141,6 @@
             this.dtgrvHienThiListSPChon.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dtgrvHienThiListSPChon.Size = new System.Drawing.Size(649, 146);
             this.dtgrvHienThiListSPChon.TabIndex = 57;
-            this.dtgrvHienThiListSPChon.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgrvHienThiListSPChon_CellContentClick);
             // 
             // MaSP
             // 
@@ -214,69 +213,69 @@
             this.lblMaHD.TabIndex = 51;
             this.lblMaHD.Text = "value";
             // 
-            // label3
+            // label_MaNV
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(413, 107);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(120, 16);
-            this.label3.TabIndex = 50;
-            this.label3.Text = "Mã NV Tiếp Nhận :";
+            this.label_MaNV.AutoSize = true;
+            this.label_MaNV.Location = new System.Drawing.Point(413, 107);
+            this.label_MaNV.Name = "label_MaNV";
+            this.label_MaNV.Size = new System.Drawing.Size(120, 16);
+            this.label_MaNV.TabIndex = 50;
+            this.label_MaNV.Text = "Mã NV Tiếp Nhận :";
             // 
-            // label2
+            // label_MaHoaDon
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(126, 107);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(84, 16);
-            this.label2.TabIndex = 49;
-            this.label2.Text = "Mã hóa đơn :";
+            this.label_MaHoaDon.AutoSize = true;
+            this.label_MaHoaDon.Location = new System.Drawing.Point(126, 107);
+            this.label_MaHoaDon.Name = "label_MaHoaDon";
+            this.label_MaHoaDon.Size = new System.Drawing.Size(88, 16);
+            this.label_MaHoaDon.TabIndex = 49;
+            this.label_MaHoaDon.Text = "Mã Hóa Đơn :";
             // 
-            // label8
+            // label_HoTen
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(126, 171);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(70, 16);
-            this.label8.TabIndex = 48;
-            this.label8.Text = "Họ và tên :";
+            this.label_HoTen.AutoSize = true;
+            this.label_HoTen.Location = new System.Drawing.Point(126, 171);
+            this.label_HoTen.Name = "label_HoTen";
+            this.label_HoTen.Size = new System.Drawing.Size(78, 16);
+            this.label_HoTen.TabIndex = 48;
+            this.label_HoTen.Text = "Họ Và Tên :";
             // 
-            // label7
+            // label_TTinKhachHang
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.label7.Location = new System.Drawing.Point(122, 141);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(166, 17);
-            this.label7.TabIndex = 47;
-            this.label7.Text = "Thông tin khách hàng";
+            this.label_TTinKhachHang.AutoSize = true;
+            this.label_TTinKhachHang.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.label_TTinKhachHang.Location = new System.Drawing.Point(122, 141);
+            this.label_TTinKhachHang.Name = "label_TTinKhachHang";
+            this.label_TTinKhachHang.Size = new System.Drawing.Size(166, 17);
+            this.label_TTinKhachHang.TabIndex = 47;
+            this.label_TTinKhachHang.Text = "Thông tin khách hàng";
             // 
-            // label6
+            // label_SanPham
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(126, 195);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(52, 16);
-            this.label6.TabIndex = 46;
-            this.label6.Text = "Phone :";
+            this.label_SanPham.AutoSize = true;
+            this.label_SanPham.Location = new System.Drawing.Point(126, 195);
+            this.label_SanPham.Name = "label_SanPham";
+            this.label_SanPham.Size = new System.Drawing.Size(52, 16);
+            this.label_SanPham.TabIndex = 46;
+            this.label_SanPham.Text = "Phone :";
             // 
-            // label5
+            // label_DiaChi
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(126, 219);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(53, 16);
-            this.label5.TabIndex = 45;
-            this.label5.Text = "Địa chỉ :";
+            this.label_DiaChi.AutoSize = true;
+            this.label_DiaChi.Location = new System.Drawing.Point(126, 219);
+            this.label_DiaChi.Name = "label_DiaChi";
+            this.label_DiaChi.Size = new System.Drawing.Size(55, 16);
+            this.label_DiaChi.TabIndex = 45;
+            this.label_DiaChi.Text = "Địa Chỉ :";
             // 
-            // label4
+            // label_NgayMua
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(126, 243);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(75, 16);
-            this.label4.TabIndex = 44;
-            this.label4.Text = "Ngày mua :";
+            this.label_NgayMua.AutoSize = true;
+            this.label_NgayMua.Location = new System.Drawing.Point(126, 243);
+            this.label_NgayMua.Name = "label_NgayMua";
+            this.label_NgayMua.Size = new System.Drawing.Size(75, 16);
+            this.label_NgayMua.TabIndex = 44;
+            this.label_NgayMua.Text = "Ngày Mua :";
             // 
             // lblDiachi
             // 
@@ -292,20 +291,20 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label_ChiTietDonHang);
             this.Controls.Add(this.dtgrvHienThiListSPChon);
             this.Controls.Add(this.lblMaNV);
             this.Controls.Add(this.lblTenKH);
             this.Controls.Add(this.lblSDTKH);
             this.Controls.Add(this.lblNgaymua);
             this.Controls.Add(this.lblMaHD);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label_MaNV);
+            this.Controls.Add(this.label_MaHoaDon);
+            this.Controls.Add(this.label_HoTen);
+            this.Controls.Add(this.label_TTinKhachHang);
+            this.Controls.Add(this.label_SanPham);
+            this.Controls.Add(this.label_DiaChi);
+            this.Controls.Add(this.label_NgayMua);
             this.Controls.Add(this.lblDiachi);
             this.Name = "FormChiTietDH";
             this.Text = "FormChiTietDH";
@@ -320,7 +319,7 @@
 
         private System.Windows.Forms.DataGridViewTextBoxColumn clGiaban;
         private System.Windows.Forms.DataGridViewTextBoxColumn Thanhtien;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label_ChiTietDonHang;
         private System.Windows.Forms.DataGridView dtgrvHienThiListSPChon;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaSP;
         private System.Windows.Forms.DataGridViewTextBoxColumn TenSP;
@@ -330,13 +329,13 @@
         private System.Windows.Forms.Label lblSDTKH;
         private System.Windows.Forms.Label lblNgaymua;
         private System.Windows.Forms.Label lblMaHD;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label_MaNV;
+        private System.Windows.Forms.Label label_MaHoaDon;
+        private System.Windows.Forms.Label label_HoTen;
+        private System.Windows.Forms.Label label_TTinKhachHang;
+        private System.Windows.Forms.Label label_SanPham;
+        private System.Windows.Forms.Label label_DiaChi;
+        private System.Windows.Forms.Label label_NgayMua;
         private System.Windows.Forms.Label lblDiachi;
     }
 }

@@ -20,30 +20,36 @@ namespace QLCuaHangDienThoai
             string username = textBox_TaiKhoan.Text;
             string password = textBox_MatKhau.Text;
 
-            if (username == "" || password == "")
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
-                MessageBox.Show("Vui long dien thong tin", "thong bao", MessageBoxButtons.OK);
+                MessageBox.Show("Vui lòng điền thông tin", "Thông báo", MessageBoxButtons.OK);
                 return;
             }
-            else
-            {
-                if (username == "admin" && password == "admin")
-                {
-                    MessageBox.Show("Xin Chao Admin!", "Thong bao", MessageBoxButtons.OK);
-                    this.Hide();
-                    FormTrangChu frm = new FormTrangChu();
-                    frm.ShowDialog();
-                    this.Show();
-                    return;
-                }
-                else if (username == "Nv" && password == "Nv")
-                {
-                    MessageBox.Show("Xin Chao Nhan Vien!", "Thong bao", MessageBoxButtons.OK);
-                }
-            }
-            DataClasses1DataContext data = new DataClasses1DataContext();
-            NguoiDung user = data.NguoiDungs.SingleOrDefault(d => d.username == username);
 
+            // Xử lý đăng nhập tạm thời admin / NV
+            if (username == "admin" && password == "admin")
+            {
+                MessageBox.Show("Xin chào Admin!", "Thông báo", MessageBoxButtons.OK);
+
+                this.Hide();
+                FormTrangChu frm = new FormTrangChu();
+                frm.ShowDialog();
+                this.Show();
+                return;
+            }
+            else if (username == "Nv" && password == "Nv")
+            {
+                MessageBox.Show("Xin chào Nhân Viên!", "Thông báo", MessageBoxButtons.OK);
+
+                this.Hide();
+                FormTrangChu frm = new FormTrangChu();
+                frm.ShowDialog();
+                this.Show();
+                return;
+            }
+
+            // Kiểm tra trong CSDL
+            NguoiDung user = db.NguoiDungs.SingleOrDefault(d => d.username == username);
 
             if (user != null)
             {
@@ -54,20 +60,15 @@ namespace QLCuaHangDienThoai
 
                 if (hashString == user.password)
                 {
-                    if (user.levelID == 1)
-                    {
-                        FormTrangChu.level = "admin";
-                        FormTrangChu trangChu = new FormTrangChu();
-                        trangChu.Show();
-                        this.Hide();
-                    }
-                    else if (user.levelID != 1)
-                    {
-                        FormTrangChu.level = "Nv";
-                        FormTrangChu trangChu = new FormTrangChu();
-                        trangChu.Show();
-                        this.Hide();
-                    }
+                    // Mở FormTrangChu
+                    this.Hide();
+                    FormTrangChu frm = new FormTrangChu();
+                    frm.ShowDialog();
+                    this.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Sai mật khẩu!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
@@ -99,9 +100,9 @@ namespace QLCuaHangDienThoai
         private void checkBox_HienThiMatKhau_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox_HienThiMatKhau.Checked)
-                textBox_MatKhau.UseSystemPasswordChar = true; 
+                textBox_MatKhau.UseSystemPasswordChar = true;
             else
-                textBox_MatKhau.UseSystemPasswordChar = false; 
+                textBox_MatKhau.UseSystemPasswordChar = false;
         }
 
         private void FormDangNhap_Load(object sender, EventArgs e)

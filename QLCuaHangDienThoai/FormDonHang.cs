@@ -12,336 +12,310 @@ namespace QLCuaHangDienThoai
 {
     public partial class FormDonHang : Form
     {
-        NhanVienBUS qlnv = new NhanVienBUS();
-        KhoHangBUS qlkh = new KhoHangBUS();
-        DonHangBUS qldh = new DonHangBUS();
-        SanPhamBUS qlsp = new SanPhamBUS();
+        DataClasses1DataContext db = new DataClasses1DataContext();
+
+        // Danh sách tạm lưu chi tiết đơn hàng khi tạo mới
+        private System.Collections.Generic.List<ChiTietDonHang> listChiTiet = new System.Collections.Generic.List<ChiTietDonHang>();
+
         public FormDonHang()
         {
             InitializeComponent();
         }
-        public string ReturnMaSP(string Thongtin)
+
+        private void FormDonHang_Load(object sender, EventArgs e)
         {
-            string[] parts = Thongtin.Split('|');
-            string MaSP = parts[0].Trim();
-            return MaSP;
+            LoadComboBoxNhanVien();
+            LoadComboBoxSanPham();
+            dtpNgayMua.Value = DateTime.Today;
         }
-        public bool TestTextBox()
+
+        // === LOAD DỮ LIỆU ===
+        private void LoadComboBoxNhanVien()
         {
-            if (txtMaDH.Text == "" || txtTenKH.Text == "" && txtDiaChi.Text == "" || txtSDTKH.Text == "" || cboMaNV.Text == "")
+            cboMaNV.Items.Clear();
+            var dsNV = db.NhanViens.Select(nv => nv.MaNV).OrderBy(m => m);
+            foreach (var ma in dsNV) cboMaNV.Items.Add(ma);
+        }
+
+        private void LoadComboBoxSanPham()
+        {
+            cboSanPham.Items.Clear();
+            var dsSP = from sp in db.SanPhams
+                       join kho in db.KhoHangs on sp.MaSP equals kho.MaSP
+                       where kho.Soluong > 0
+                       select new
+                       {
+                           sp.MaSP,
+                           sp.TenSP,
+                           kho.Soluong
+                       };
+
+            foreach (var sp in dsSP)
             {
+                cboSanPham.Items.Add($"{sp.MaSP} | {sp.TenSP} | SL còn: {sp.Soluong}");
+            }
+        }
+
+        // === LẤY MÃ SP TỪ COMBOBOX ===
+        private string LayMaSP()
+        {
+            if (string.IsNullOrEmpty(cboSanPham.Text)) return null;
+            return cboSanPham.Text.Split('|')[0].Trim();
+        }
+        private void btnLamMoi_Click(object sender, EventArgs e)
+        {
+            LamMoiForm();
+        }
+
+        private void LamMoiForm()
+        {
+            txtMaDH.Clear();
+            txtTenKH.Clear();
+            txtSDTKH.Clear();
+            txtDiaChi.Clear();
+            txtSoluong.Clear();
+            cboMaNV.Text = "";
+            cboSanPham.Text = "";
+            dtgrvHienThiListSPChon.Rows.Clear();
+            listChiTiet.Clear();
+            btn_XemChiTietDH.Visible = false;
+            btn_XuatHoaDon.Visible = false;
+
+            LoadComboBoxNhanVien();
+            LoadComboBoxSanPham();
+        }
+
+        private bool KiemTraDuLieu()
+        {
+            if (string.IsNullOrWhiteSpace(txtMaDH.Text))
+            {
+                MessageBox.Show("Mã đơn hàng không được để trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (string.IsNullOrWhiteSpace(cboMaNV.Text))
+            {
+                MessageBox.Show("Vui lòng chọn nhân viên!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (listChiTiet.Count == 0)
+            {
+                MessageBox.Show("Chưa chọn sản phẩm nào!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             return true;
         }
-        public DonHang GetDataTextBox()
+
+        private void cboSanPham_Enter(object sender, EventArgs e)
         {
-            DonHang dhnew = new DonHang();
-            if (TestTextBox())
-            {
-                dhnew.MaDH = txtMaDH.Text;
-                dhnew.TenKH = txtTenKH.Text;
-                dhnew.SDTKH = txtSDTKH.Text;
-                dhnew.DiaChi = txtDiaChi.Text;
-                dhnew.MaNV = cboMaNV.Text;
-                dhnew.NgayMua = dateTimePicker1.Value;
-                return dhnew;
-            }
-            else
-            {
-
-                return null;
-            }
-
+            if (cboSanPham.Text.Contains("Tồn:")) cboSanPham.Text = "";
         }
-        public List<ChiTietDonHang> listctdh = new List<ChiTietDonHang>();
-        public List<ObjectSP> listctsp = new List<ObjectSP>();
 
-
-        public ObjectSP LaydulieuSP(string soluong)
+        private void txtSoLuong_KeyPress(object sender, KeyPressEventArgs e)
         {
-            var chitietSP = qlsp.GetListSP().ToList().Find(s => s.MaSP == ReturnMaSP(cboSanPham.Text));
-            if (chitietSP != null)
-            {
-                ObjectSP a = new ObjectSP();
-                a.MaSP = chitietSP.MaSP;
-                a.TenSP = chitietSP.TenSP;
-                a.Soluong = int.Parse(soluong);
-                a.Giaban = (double)chitietSP.Giaban;
-                a.Thanhtien = a.Soluong * a.Giaban;
-                return a;
-            }
-            return null;
-
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back)
+                e.Handled = true;
         }
-        public void GetDSNV()
+
+        private void btn_ThemSanPham_Click(object sender, EventArgs e)
         {
-            var listMaNV = qlnv.GetListNV().ToList().Select(s => s.MaNV);
-            foreach (var nv in listMaNV)
+            if (string.IsNullOrWhiteSpace(txtMaDH.Text))
             {
-                cboMaNV.Items.Add(nv);
+                MessageBox.Show("Vui lòng nhập Mã đơn hàng!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
-        }
-        public void GetSPTrongKho()
-        {
-            var listSP = qlkh.GetAllSP().ToList().Select(s => s.MaSP + " | " + s.TenSP + " | Số lượng còn:" + s.Soluong).ToList();
-            foreach (var x in listSP)
+            string maSP = LayMaSP();
+            if (maSP == null)
             {
-                cboSanPham.Items.Add(x);
+                MessageBox.Show("Vui lòng chọn sản phẩm!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-        }
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
 
-        }
-
-        private void FormDonHang_Load(object sender, EventArgs e)
-        {
-            GetDSNV();
-            GetSPTrongKho();
-        }
-
-        private void cboSanPham_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cboSanPham_SelectedValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnThemSP_Click(object sender, EventArgs e)
-        {
-            try
+            if (!int.TryParse(txtSoluong.Text, out int sl) || sl <= 0)
             {
+                MessageBox.Show("Số lượng phải là số dương!", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-                if (cboSanPham.Text != null && txtSoluong.Text != null)
+            var kho = db.KhoHangs.FirstOrDefault(k => k.MaSP == maSP);
+            if (kho == null || kho.Soluong < sl)  // ← SỬA: Soluong
+            {
+                MessageBox.Show($"Kho chỉ còn {kho?.Soluong ?? 0} sản phẩm!", "Hết hàng", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var sp = db.SanPhams.FirstOrDefault(s => s.MaSP == maSP);
+            if (sp == null) return;
+
+            double donGia = (double)sp.Giaban;
+            double thanhTien = sl * donGia;
+
+            dtgrvHienThiListSPChon.Rows.Add(maSP, sp.TenSP, sl, donGia.ToString("N0"), thanhTien.ToString("N0"));
+
+            listChiTiet.Add(new ChiTietDonHang
+            {
+                MaDH = txtMaDH.Text,
+                MaSP = maSP,
+                SoLuong = sl,
+                DonGia = thanhTien
+            });
+
+            txtSoluong.Clear();
+            MessageBox.Show("Đã thêm vào giỏ hàng!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void btn_XoaSanPham_Click(object sender, EventArgs e)
+        {
+            if (dtgrvHienThiListSPChon.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Chọn sản phẩm cần xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var row = dtgrvHienThiListSPChon.SelectedRows[0];
+            string maSP = row.Cells[0].Value.ToString();
+
+            dtgrvHienThiListSPChon.Rows.Remove(row);
+            listChiTiet.RemoveAll(ct => ct.MaSP == maSP);
+
+            MessageBox.Show("Đã xóa sản phẩm!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void btn_Refesh_Click(object sender, EventArgs e)
+        {
+            LamMoiForm();
+        }
+
+        private void btn_HuyDonHang_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtMaDH.Text))
+            {
+                MessageBox.Show("Nhập Mã đơn hàng cần hủy!", "Thiếu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (MessageBox.Show("Hủy đơn hàng này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                return;
+
+            var donHang = db.DonHangs.FirstOrDefault(d => d.MaDH == txtMaDH.Text);
+            if (donHang == null)
+            {
+                MessageBox.Show("Không tìm thấy đơn hàng!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var chiTiets = db.ChiTietDonHangs.Where(ct => ct.MaDH == txtMaDH.Text).ToList();
+            foreach (var ct in chiTiets)
+            {
+                var kho = db.KhoHangs.FirstOrDefault(k => k.MaSP == ct.MaSP);
+                if (kho != null) kho.Soluong += ct.SoLuong; 
+            }
+
+            db.ChiTietDonHangs.DeleteAllOnSubmit(chiTiets);
+            db.DonHangs.DeleteOnSubmit(donHang);
+            db.SubmitChanges();
+
+            MessageBox.Show("Hủy đơn hàng thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            LamMoiForm();
+        }
+
+        private void btn_TaoDonHang_Click(object sender, EventArgs e)
+        {
+            if (!KiemTraDuLieu()) return;
+
+            if (db.DonHangs.Any(d => d.MaDH == txtMaDH.Text))
+            {
+                MessageBox.Show("Mã đơn hàng đã tồn tại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            var donHang = new DonHang
+            {
+                MaDH = txtMaDH.Text,
+                TenKH = txtTenKH.Text,
+                SDTKH = txtSDTKH.Text,
+                DiaChi = txtDiaChi.Text,
+                NgayMua = dtpNgayMua.Value,
+                MaNV = cboMaNV.Text
+            };
+
+            db.DonHangs.InsertOnSubmit(donHang);
+
+            foreach (var ct in listChiTiet)
+            {
+                db.ChiTietDonHangs.InsertOnSubmit(ct);
+
+                var kho = db.KhoHangs.FirstOrDefault(k => k.MaSP == ct.MaSP);
+                if (kho != null) kho.Soluong -= ct.SoLuong;  // ← SỬA: Soluong
+            }
+
+            db.SubmitChanges();
+
+            MessageBox.Show("Tạo đơn hàng thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            btn_XemChiTietDH.Visible = true;
+            btn_XuatHoaDon.Visible = true;
+
+            LamMoiForm();
+        }
+
+        private void btn_XuatHoaDon_Click(object sender, EventArgs e)
+        {
+            var dh = new DonHang
+            {
+                MaDH = txtMaDH.Text,
+                MaNV = cboMaNV.Text,
+                TenKH = txtTenKH.Text,
+                SDTKH = txtSDTKH.Text,
+                DiaChi = txtDiaChi.Text,
+                NgayMua = dtpNgayMua.Value
+            };
+
+            // DÙNG dynamic – KHÔNG CẦN CLASS
+            var listSP = dtgrvHienThiListSPChon.Rows
+                .Cast<DataGridViewRow>()
+                .Select(r => new
                 {
-                    if (LaydulieuSP(txtSoluong.Text) != null)
-                    {
-                        if (txtMaDH.Text != "")
+                    MaSP = r.Cells[0].Value?.ToString(),
+                    TenSP = r.Cells[1].Value?.ToString(),
+                    SoLuong = Convert.ToInt32(r.Cells[2].Value),
+                    GiaBan = Convert.ToDouble(r.Cells[3].Value),
+                    ThanhTien = Convert.ToDouble(r.Cells[4].Value)
+                } as dynamic)
+                .ToList();
 
-                        {
-                            var lispKho = qlkh.GetAllSP();
-                            var a = LaydulieuSP(txtSoluong.Text);
-                            ChiTietDonHang b = new ChiTietDonHang();
-                            b.MaDH = txtMaDH.Text;
-                            b.MaSP = a.MaSP;
-                            b.SoLuong = a.Soluong;
-                            b.DonGia = a.Thanhtien;
-
-                            ObjectSP c = new ObjectSP();//Tạo đội tượng sản phẩm để thêm danh vào danh sách sản phẩm và xuaát hóa đơn
-                            c.MaSP = a.MaSP;
-                            c.TenSP = a.TenSP;
-                            c.Soluong = a.Soluong;
-                            c.Giaban = a.Giaban;
-                            c.Thanhtien = a.Thanhtien;
-                            if (int.Parse(txtSoluong.Text) > 0)
-                            {
-                                if (lispKho.Find(s => s.MaSP == a.MaSP).Soluong >= int.Parse(txtSoluong.Text))
-                                {
-                                    dtgrvHienThiListSPChon.Rows.Add(a.MaSP, a.TenSP, a.Soluong, a.Giaban, a.Thanhtien);
-                                    listctdh.Add(b);
-                                    listctsp.Add(c);
-                                    MessageBox.Show("Thêm thành công đơn hàng vào giỏ !");
-                                }
-                                else
-                                {
-                                    MessageBox.Show("Số lượng mua phải bé hơn số lượng tồn trong kho");
-                                }
-                            }
-                            else
-                            {
-                                MessageBox.Show("Số lượng mua phải là số dương");
-                            }
-
-
-                        }
-                        else
-                        {
-                            MessageBox.Show("Hãy nhập đầy đủ thông tin đơn hàng trước khi chọn sản phẩm");
-                        }
-
-                    }
-                    else
-                    {
-                        MessageBox.Show("Vui lòng chỉ chọn sản phẩm có sẵn trong kho", "Thông báo");
-                    }
-                }
-            }
-            catch { MessageBox.Show("Số lượng sản phẩm phải là kiểu int", "Thông báo"); }
-        }
-        public class Inhoadon
-        {
-            static public DonHang dh;
-            static public List<ObjectSP> listsp;
+            FormXuatHoaDon.donHang = dh;
+            FormXuatHoaDon.listSanPham = listSP;
+            new FormXuatHoaDon().ShowDialog();
         }
 
-        private void dtgrvHienThiListSPChon_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        private void btn_XemChiTietDH_Click(object sender, EventArgs e)
         {
-            dtgrvHienThiListSPChon.CurrentCell = null;
-        }
-
-        private void dtgrvHienThiListSPChon_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void dtgrvHienThiListSPChon_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void btnXoaSanPham_Click(object sender, EventArgs e)
-        {
-            if (dtgrvHienThiListSPChon.SelectedRows.Count > 0) // Kiểm tra xem có dòng đang được chọn không
+            var dh = new DonHang
             {
-                DataGridViewRow selectedRow = dtgrvHienThiListSPChon.Rows[0];
-                dtgrvHienThiListSPChon.Rows.Remove(selectedRow);
-                string Masp = dtgrvHienThiListSPChon.Rows[0].Cells[0].Value.ToString();//Lấy dữ liệu cột masp dòng đang chọn
-                ObjectSP sptgg = listctsp.Find(s => s.MaSP == Masp);
-                ChiTietDonHang sptg = listctdh.Find(s => s.MaSP == Masp);
-                listctdh.Remove(sptg);
-                listctsp.Remove(sptgg);
-                MessageBox.Show("Xóa thành công khỏi giỏ hàng");
-            }
-            else
-            {
-                MessageBox.Show("Chưa chọn sản phẩm nào !");
-            }
-        }
+                MaDH = txtMaDH.Text,
+                MaNV = cboMaNV.Text,
+                TenKH = txtTenKH.Text,
+                SDTKH = txtSDTKH.Text,
+                DiaChi = txtDiaChi.Text,
+                NgayMua = dtpNgayMua.Value
+            };
 
-        private void btnTaoDonHang_Click(object sender, EventArgs e)
-        {
-            if (GetDataTextBox() != null)
-            {
-                if (CheckNVcbb())
+            // DÙNG dynamic – KHÔNG CẦN CLASS
+            var listSP = dtgrvHienThiListSPChon.Rows
+                .Cast<DataGridViewRow>()
+                .Select(r => new
                 {
-                    if (listctdh.Count >= 1)
-                    {
-                        if (qldh.AddDH(GetDataTextBox()))
-                        {
-                            foreach (var x in listctdh)
-                            {
-                                qldh.AddChiTietDH(x);
-                                qlkh.GiamSoLuongQL(x.MaSP, (int)x.SoLuong);
-                            }
+                    MaSP = r.Cells[0].Value?.ToString(),
+                    TenSP = r.Cells[1].Value?.ToString(),
+                    SoLuong = Convert.ToInt32(r.Cells[2].Value),
+                    GiaBan = Convert.ToDouble(r.Cells[3].Value),
+                    ThanhTien = Convert.ToDouble(r.Cells[4].Value)
+                } as dynamic)
+                .ToList();
 
-                            btnXemchitiet.Visible = true;
-                            btnXuatHoadon.Visible = true;
-                            MessageBox.Show("Thêm thành công đơn hàng");
-                            listctdh.Clear();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Mã đơn hàng này đã tồn tại");
-                        }
-
-                    }
-                    else
-                    {
-                        MessageBox.Show("Chưa có sản phẩm nào");
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Chỉ chọn nhân viên đang làm việc tại cửa hàng !");
-                }
-
-
-            }
-            else
-            {
-                MessageBox.Show("Vui lòng nhập đầy đủ dữ liệu");
-            }
+            var form = new FormChiTietDH(dh, listSP);
+            form.ShowDialog();
         }
-
-        private void btnHuyDH_Click(object sender, EventArgs e)
-        {
-            DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn hủy đơn hàng", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (result == DialogResult.Yes)
-            {
-                if (txtMaDH.Text != "")
-                {
-                    var listAllCTDH = qldh.getALLCTDH(txtMaDH.Text);
-                    if (qldh.DeleteCTDH(txtMaDH.Text))
-                    {
-                        qldh.DeleteDH(txtMaDH.Text);
-                        ///Cập nhật lại số lượng sản phẩm
-                        if (listAllCTDH.Count > 0)
-                        {
-                            foreach (var i in listAllCTDH)
-                            {
-                                qlkh.TangSoLuongQL(i.MaSP, (int)i.Soluong);
-
-
-                            }
-                            MessageBox.Show("Xóa đơn hàng thành công !", "Thông báo", MessageBoxButtons.OK);
-                        }
-                        else
-                        {
-                            MessageBox.Show("Thất bại do đơn hàng này không tìm thấy sản phẩm!", "Thông báo", MessageBoxButtons.OK);
-                        }
-
-                    }
-                    else
-                    {
-                        MessageBox.Show("Đơn hàng không tồn tại !", "Thông báo", MessageBoxButtons.OK);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Hãy nhập mã đơn hàng cần hủy !", "Thông báo", MessageBoxButtons.OK);
-                }
-            }
-        }
-
-        private void vbButton1_Click(object sender, EventArgs e)
-        {
-            txtDiaChi.Text = "";
-            txtMaDH.Text = "";
-            txtSDTKH.Text = "";
-            txtSoluong.Text = "";
-            txtTenKH.Text = "";
-            cboMaNV.Text = "";
-            cboSanPham.Text = " Chọn sản phẩm";
-            cboSanPham.ForeColor = Color.DarkGray;
-            cboMaNV.Items.Clear();
-            cboSanPham.Items.Clear();
-            GetDSNV();
-            GetSPTrongKho();
-            listctdh.Clear();
-            dtgrvHienThiListSPChon.Rows.Clear();
-            btnXemchitiet.Visible = false;
-            btnXuatHoadon.Visible = false;
-
-        }
-
-        private void btnXuatHoadon_Click(object sender, EventArgs e)
-        {
-
-            Inhoadon.dh = GetDataTextBox();
-            Inhoadon.listsp = listctsp;
-            FormXuatHoaDon a = new FormXuatHoaDon();
-            a.ShowDialog();
-        }
-
-        private void btnXemchitiet_Click(object sender, EventArgs e)
-        {
-            ///// Lấy thông tin khách hàng từ các điều khiển trên form
-            Inhoadon.dh = GetDataTextBox();
-            Inhoadon.listsp = listctsp;
-            FormChiTietDH a = new FormChiTietDH(Inhoadon.dh, Inhoadon.listsp);
-            a.ShowDialog();
-        }
-
-        private void txtSoluong_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-    }
     }
 }
-
